@@ -129,9 +129,9 @@ class Keychain:
         The keychain stores keys under a different name for tests.
         """
         if self.testing:
-            return f"chia-{self.user}-test"
+            return f"madmax-{self.user}-test"
         else:
-            return f"chia-{self.user}"
+            return f"madmax-{self.user}"
 
     def _get_pk_and_entropy(self, user: str) -> Optional[Tuple[G1Element, bytes]]:
         """

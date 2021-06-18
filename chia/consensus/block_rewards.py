@@ -14,18 +14,9 @@ def calculate_pool_reward(height: uint32) -> uint64:
     rates increase continuously.
     """
 
-    if height == 0:
-        return uint64(int((7 / 8) * 21000000 * _mojo_per_chia))
-    elif height < 3 * _blocks_per_year:
-        return uint64(int((7 / 8) * 2 * _mojo_per_chia))
-    elif height < 6 * _blocks_per_year:
-        return uint64(int((7 / 8) * 1 * _mojo_per_chia))
-    elif height < 9 * _blocks_per_year:
-        return uint64(int((7 / 8) * 0.5 * _mojo_per_chia))
-    elif height < 12 * _blocks_per_year:
-        return uint64(int((7 / 8) * 0.25 * _mojo_per_chia))
-    else:
-        return uint64(int((7 / 8) * 0.125 * _mojo_per_chia))
+    y = height // _blocks_per_year
+
+    return uint64(int((7 / 8) * 40000 * _mojo_per_chia / (2 ** (y if y < 2 else (4 + y) // 3))))
 
 
 def calculate_base_farmer_reward(height: uint32) -> uint64:
@@ -37,15 +28,6 @@ def calculate_base_farmer_reward(height: uint32) -> uint64:
     (3 years, etc), due to fluctuations in difficulty. They will likely come early, if the network space and VDF
     rates increase continuously.
     """
-    if height == 0:
-        return uint64(int((1 / 8) * 21000000 * _mojo_per_chia))
-    elif height < 3 * _blocks_per_year:
-        return uint64(int((1 / 8) * 2 * _mojo_per_chia))
-    elif height < 6 * _blocks_per_year:
-        return uint64(int((1 / 8) * 1 * _mojo_per_chia))
-    elif height < 9 * _blocks_per_year:
-        return uint64(int((1 / 8) * 0.5 * _mojo_per_chia))
-    elif height < 12 * _blocks_per_year:
-        return uint64(int((1 / 8) * 0.25 * _mojo_per_chia))
-    else:
-        return uint64(int((1 / 8) * 0.125 * _mojo_per_chia))
+    y = height // _blocks_per_year
+
+    return uint64(int((1 / 8) * 40000 * _mojo_per_chia / (2 ** (y if y < 2 else (4 + y) // 3))))
