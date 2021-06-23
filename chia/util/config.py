@@ -15,6 +15,14 @@ def initial_config_file(filename: Union[str, Path]) -> str:
     return pkg_resources.resource_string(__name__, f"initial-{filename}").decode()
 
 
+def initial_config() -> Dict:
+    return yaml.safe_load(initial_config_file("config.yaml"))
+
+
+def _constants() -> Dict:
+    return yaml.safe_load(pkg_resources.resource_string(__name__, "constants.yaml").decode())
+
+
 def create_default_chia_config(root_path: Path) -> None:
     for filename in ["config.yaml"]:
         default_config_file_data = initial_config_file(filename)

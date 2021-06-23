@@ -18,6 +18,7 @@ from chia.server.address_manager_store import AddressManagerStore
 from chia.server.outbound_message import NodeType, make_msg
 from chia.server.server import ChiaServer
 from chia.types.peer_info import PeerInfo, TimestampedPeerInfo
+from chia.util.config import initial_config
 from chia.util.hash import std_hash
 from chia.util.ints import uint64
 from chia.util.path import mkdir, path_from_root
@@ -179,7 +180,7 @@ class FullNodeDiscovery:
                 peers.append(
                     TimestampedPeerInfo(
                         ip.to_text(),
-                        9333,
+                        initial_config()["full_node"]["port"],
                         0,
                     )
                 )

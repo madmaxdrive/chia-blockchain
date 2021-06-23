@@ -3,7 +3,7 @@ from typing import Dict
 
 import click
 
-from chia.util.config import load_config, save_config, str2bool
+from chia.util.config import initial_config, load_config, save_config, str2bool
 from chia.util.default_root import DEFAULT_ROOT_PATH
 
 
@@ -17,6 +17,7 @@ def configure(
     testnet: str,
 ):
     config: Dict = load_config(DEFAULT_ROOT_PATH, "config.yaml")
+    default_config = initial_config()
     change_made = False
     if set_node_introducer:
         try:
@@ -100,8 +101,8 @@ def configure(
 
         elif testnet == "false" or testnet == "f":
             print("Setting Mainnet")
-            mainnet_port = "9333"
-            mainnet_introducer = "introducer.madmaxdrive.net"
+            mainnet_port = default_config["full_node"]["port"]
+            mainnet_introducer = default_config["full_node"]["introducer_peer"]["host"]
             net = "mainnet"
             config["full_node"]["port"] = int(mainnet_port)
             config["full_node"]["introducer_peer"]["port"] = int(mainnet_port)

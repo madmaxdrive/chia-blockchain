@@ -10,6 +10,7 @@ from bitstring import BitArray
 from blspy import AugSchemeMPL, G1Element, PrivateKey
 from keyrings.cryptfile.cryptfile import CryptFileKeyring
 
+from chia.util.config import _constants
 from chia.util.hash import std_hash
 
 MAX_KEYS = 100
@@ -128,10 +129,12 @@ class Keychain:
         """
         The keychain stores keys under a different name for tests.
         """
+        name = _constants()["name"]
+
         if self.testing:
-            return f"madmax-{self.user}-test"
+            return f"{name}-{self.user}-test"
         else:
-            return f"madmax-{self.user}"
+            return f"{name}-{self.user}"
 
     def _get_pk_and_entropy(self, user: str) -> Optional[Tuple[G1Element, bytes]]:
         """

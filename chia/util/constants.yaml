@@ -1,0 +1,12 @@
+name: madmax
+
+difficulty:
+  constant_factor: 576460752303423488
+  starting: 1
+
+block_rewards:
+  prefarm: ~
+  initial: 40000
+  half_life:
+    0: 1                        # from year 0, half rewards every 1 year
+    2: 3                        # from year 2, half rewards every 3 years

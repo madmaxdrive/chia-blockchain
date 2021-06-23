@@ -9,13 +9,13 @@ from chia.types.blockchain_format.program import Program
 from chia.types.coin_solution import CoinSolution
 from chia.types.spend_bundle import SpendBundle
 from chia.util.bech32m import decode_puzzle_hash
-from chia.util.config import load_config
+from chia.util.config import initial_config, load_config
 from chia.util.default_root import DEFAULT_ROOT_PATH
 from chia.util.ints import uint32, uint16
 
 
 async def main() -> None:
-    rpc_port: uint16 = uint16(9555)
+    rpc_port: uint16 = uint16(initial_config()["full_node"]["rpc_port"])
     self_hostname = "localhost"
     path = DEFAULT_ROOT_PATH
     config = load_config(path, "config.yaml")

@@ -51,6 +51,7 @@ from chia.types.mempool_inclusion_status import MempoolInclusionStatus
 from chia.types.spend_bundle import SpendBundle
 from chia.types.unfinished_block import UnfinishedBlock
 from chia.util.bech32m import encode_puzzle_hash
+from chia.util.config import initial_config
 from chia.util.db_wrapper import DBWrapper
 from chia.util.errors import ConsensusError, Err
 from chia.util.ints import uint8, uint32, uint64, uint128
@@ -174,13 +175,14 @@ class FullNode:
             await self.weight_proof_handler.create_sub_epoch_segments()
 
     def set_server(self, server: ChiaServer):
+        default_config = initial_config()
         self.server = server
         dns_servers = []
         if "dns_servers" in self.config:
             dns_servers = self.config["dns_servers"]
-        elif self.config["port"] == 9333:
+        elif self.config["port"] == default_config["full_node"]["port"]:
             # If `dns_servers` misses from the `config`, hardcode it if we're running mainnet.
-            dns_servers.append("dns-introducer.madmaxdrive.net")
+            dns_servers.append(default_config["full_node"]["dns_servers"][0])
         try:
             self.full_node_peers = FullNodePeers(
                 self.server,
