@@ -945,6 +945,13 @@ def singleton(lockfile: Path, text: str = "semaphore") -> Optional[TextIO]:
     return f
 
 
+def flush_json_str(msg: Dict):
+    sys.stdout.flush()
+    json_msg = dict_to_json_str(msg)
+    sys.stdout.write("\n" + json_msg + "\n")
+    sys.stdout.flush()
+
+
 async def async_run_daemon(root_path: Path) -> int:
     chia_init(root_path)
     config = load_config(root_path, "config.yaml")
@@ -955,8 +962,14 @@ async def async_run_daemon(root_path: Path) -> int:
     key_path = root_path / config["daemon_ssl"]["private_key"]
     ca_crt_path = root_path / config["private_ssl_ca"]["crt"]
     ca_key_path = root_path / config["private_ssl_ca"]["key"]
-    sys.stdout.flush()
-    json_msg = dict_to_json_str(
+    flush_json_str(
+        {
+            "message": "bind",
+            "success": True,
+            "daemon_port": config["daemon_port"],
+        }
+    )
+    flush_json_str(
         {
             "message": "cert_path",
             "success": True,
@@ -965,8 +978,6 @@ async def async_run_daemon(root_path: Path) -> int:
             "ca_crt": f"{ca_crt_path}",
         }
     )
-    sys.stdout.write("\n" + json_msg + "\n")
-    sys.stdout.flush()
     if lockfile is None:
         print("daemon: already launching")
         return 2

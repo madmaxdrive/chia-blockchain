@@ -44,8 +44,8 @@ if [ "$LAST_EXIT_CODE" -ne 0 ]; then
 	exit $LAST_EXIT_CODE
 fi
 
-electron-packager . Chia --asar.unpack="**/daemon/**" --platform=darwin \
---icon=src/assets/img/Chia.icns --overwrite --app-bundle-id=net.chia.blockchain \
+electron-packager . Madmax --asar.unpack="**/daemon/**" --platform=darwin \
+--icon=src/assets/img/Chia.icns --overwrite --app-bundle-id=net.madmaxdrive.blockchain \
 --appVersion=$CHIA_INSTALLER_VERSION
 LAST_EXIT_CODE=$?
 if [ "$LAST_EXIT_CODE" -ne 0 ]; then
@@ -65,13 +65,13 @@ if [ "$LAST_EXIT_CODE" -ne 0 ]; then
 	exit $LAST_EXIT_CODE
 fi
 
-mv Chia-darwin-x64 ../build_scripts/dist/
+mv Madmax-darwin-x64 ../build_scripts/dist/
 cd ../build_scripts || exit
 
-DMG_NAME="Chia-$CHIA_INSTALLER_VERSION.dmg"
+DMG_NAME="Madmax-$CHIA_INSTALLER_VERSION.dmg"
 echo "Create $DMG_NAME"
 mkdir final_installer
-electron-installer-dmg dist/Chia-darwin-x64/Chia.app Chia-$CHIA_INSTALLER_VERSION \
+electron-installer-dmg dist/Madmax-darwin-x64/Madmax.app Madmax-$CHIA_INSTALLER_VERSION \
 --overwrite --out final_installer
 LAST_EXIT_CODE=$?
 if [ "$LAST_EXIT_CODE" -ne 0 ]; then
