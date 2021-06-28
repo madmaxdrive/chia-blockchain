@@ -102,7 +102,7 @@ kwargs = dict(
     package_data={
         "chia": ["pyinstaller.spec"],
         "chia.wallet.puzzles": ["*.clvm", "*.clvm.hex"],
-        "chia.util": ["initial-*.yaml", "english.txt"],
+        "chia.util": ["initial-*.yaml", "constants.yaml", "english.txt"],
         "chia.ssl": ["chia_ca.crt", "chia_ca.key", "dst_root_ca.pem"],
         "mozilla-ca": ["cacert.pem"],
     },
