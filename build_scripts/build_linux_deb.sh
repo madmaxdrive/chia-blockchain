@@ -5,11 +5,10 @@ if [ ! "$1" ]; then
 	exit 1
 elif [ "$1" = "amd64" ]; then
 	PLATFORM="$1"
-	REDHAT_PLATFORM="x86_64"
-	DIR_NAME="madmax-blockchain-linux-x64"
+	DIR_NAME="chia-blockchain-linux-x64"
 else
 	PLATFORM="$1"
-	DIR_NAME="madmax-blockchain-linux-arm64"
+	DIR_NAME="chia-blockchain-linux-arm64"
 fi
 
 pip install setuptools_scm
@@ -27,7 +26,6 @@ echo "Chia Installer Version is: $CHIA_INSTALLER_VERSION"
 echo "Installing npm and electron packagers"
 npm install electron-packager -g
 npm install electron-installer-debian -g
-npm install electron-installer-redhat -g
 
 echo "Create dist/"
 rm -rf dist
@@ -57,7 +55,7 @@ if [ "$LAST_EXIT_CODE" -ne 0 ]; then
 	exit $LAST_EXIT_CODE
 fi
 
-electron-packager . madmax-blockchain --asar.unpack="**/daemon/**" --platform=linux \
+electron-packager . chia-blockchain --asar.unpack="**/daemon/**" --platform=linux \
 --icon=src/assets/img/Chia.icns --overwrite --app-bundle-id=net.chia.blockchain \
 --appVersion=$CHIA_INSTALLER_VERSION
 LAST_EXIT_CODE=$?
@@ -78,18 +76,6 @@ LAST_EXIT_CODE=$?
 if [ "$LAST_EXIT_CODE" -ne 0 ]; then
 	echo >&2 "electron-installer-debian failed!"
 	exit $LAST_EXIT_CODE
-fi
-
-if [ "$REDHAT_PLATFORM" = "x86_64" ]; then
-	echo "Create chia-blockchain-$CHIA_INSTALLER_VERSION.rpm"
-  electron-installer-redhat --src dist/$DIR_NAME/ --dest final_installer/ \
-  --arch "$REDHAT_PLATFORM" --options.version $CHIA_INSTALLER_VERSION \
-  --license ../LICENSE
-  LAST_EXIT_CODE=$?
-  if [ "$LAST_EXIT_CODE" -ne 0 ]; then
-	  echo >&2 "electron-installer-redhat failed!"
-	  exit $LAST_EXIT_CODE
-  fi
 fi
 
 ls final_installer/
