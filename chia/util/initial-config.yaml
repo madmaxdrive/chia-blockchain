@@ -3,7 +3,7 @@ min_mainnet_k_size: 32
 # Send a ping to all peers after ping_interval seconds
 ping_interval: 120
 self_hostname: &self_hostname "localhost"
-daemon_port: 65400
+daemon_port: 54400
 inbound_rate_limit_percent: 100
 outbound_rate_limit_percent: 30
 
@@ -120,10 +120,10 @@ logging: &logging
 
 harvester:
   # The harvester server (if run) will run on this port
-  port: 9338
+  port: 7448
   farmer_peer:
     host: *self_hostname
-    port: 9337
+    port: 7447
 
   # If True, starts an RPC server at the following port
   start_rpc_server: True
@@ -160,14 +160,14 @@ pool:
 
 farmer:
   # The farmer server (if run) will run on this port
-  port: 9337
+  port: 7447
   # The farmer will attempt to connect to this full node and harvester
   full_node_peer:
     host: *self_hostname
-    port: 9333
+    port: 7444
   harvester_peer:
     host: *self_hostname
-    port: 9338
+    port: 7448
 
   pool_public_keys: []
 
@@ -201,7 +201,7 @@ timelord_launcher:
 
 timelord:
   # The timelord server (if run) will run on this port
-  port: 9336
+  port: 7446
   # Provides a list of VDF clients expected to connect to this timelord.
   # For each client, an IP is provided, together with the estimated iterations per second.
   vdf_clients:
@@ -213,7 +213,7 @@ timelord:
       - 150000
   full_node_peer:
       host: *self_hostname
-      port: 9333
+      port: 7444
   # Maximum number of seconds allowed for a client to reconnect to the server.
   max_connection_time: 60
   # The ip and port where the TCP clients will connect.
@@ -248,7 +248,7 @@ timelord:
 
 full_node:
   # The full node server (if run) will run on this port
-  port: 9333
+  port: 7444
 
   # Run multiple nodes with different databases by changing the database_path
   database_path: db/blockchain_v1_CHALLENGE.sqlite
@@ -306,16 +306,16 @@ full_node:
     - "dns-introducer.madmaxdrive.net"
   farmer_peer:
       host: *self_hostname
-      port: 9337
+      port: 7447
   timelord_peer:
       host: *self_hostname
-      port: 9336
+      port: 7446
   introducer_peer:
       host: introducer.madmaxdrive.net  # Chia AWS introducer IPv4/IPv6
-      port: 9335
+      port: 7445
   wallet_peer:
     host: *self_hostname
-    port: 9339
+    port: 7449
   logging: *logging
   network_overrides: *network_overrides
   selected_network: *selected_network
@@ -342,14 +342,14 @@ ui:
   # this is where the electron UI will find its daemon
   # defaults to the one running locally with its private keys
   daemon_host: *self_hostname
-  daemon_port: 65400
+  daemon_port: 54400
   daemon_ssl:
     private_crt: config/ssl/daemon/private_daemon.crt
     private_key: config/ssl/daemon/private_daemon.key
 
 introducer:
   host: *self_hostname
-  port: 9335
+  port: 7445
   max_peers_to_send: 20
   # The introducer will only return peers who it has seen in the last
   # recent_peer_threshold seconds
@@ -363,7 +363,7 @@ introducer:
     public_key:  "config/ssl/full_node/public_full_node.key"
 
 wallet:
-  port: 9339
+  port: 7449
   rpc_port: 10256
 
   enable_profiler: False
@@ -378,7 +378,7 @@ wallet:
 
   full_node_peer:
     host: *self_hostname
-    port: 9333
+    port: 7444
 
   testing: False
   database_path: wallet/db/blockchain_wallet_v1_CHALLENGE_KEY.sqlite
@@ -396,7 +396,7 @@ wallet:
 
   introducer_peer:
     host: introducer.madmaxdrive.net # Chia AWS introducer IPv4/IPv6
-    port: 9335
+    port: 7445
 
   ssl:
     private_crt:  "config/ssl/wallet/private_wallet.crt"

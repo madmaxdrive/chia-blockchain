@@ -86,6 +86,8 @@ from chia.wallet.derive_keys import (
     master_sk_to_wallet_sk,
 )
 
+from chia.util.config import _constants
+
 test_constants = DEFAULT_CONSTANTS.replace(
     **{
         "MIN_PLOT_SIZE": 18,
@@ -1219,7 +1221,7 @@ def get_challenges(
 
 
 def get_plot_dir() -> Path:
-    cache_path = Path(os.path.expanduser(os.getenv("CHIA_ROOT", "~/.chia/"))) / "test-plots"
+    cache_path = Path(os.path.expanduser(os.getenv(f"{_constants()['name'].upper()}_ROOT", f"~/.{_constants()['name']}/"))) / "test-plots"
     mkdir(cache_path)
     return cache_path
 
