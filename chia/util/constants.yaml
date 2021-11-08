@@ -5,8 +5,9 @@ difficulty:
   starting: 1
 
 block_rewards:
-  prefarm: ~
-  initial: 40000
+  prefarm: 80000000000000000    # 800,000,000,000,000.00
+  initial: 12000000000          #         120,000,000.00
   half_life:
-    0: 1                        # from year 0, half rewards every 1 year
-    2: 3                        # from year 2, half rewards every 3 years
+    0: 3                  # from month 0, half rewards every 3 months
+    6: 18                 # from month 6, half rewards every 18 months
+    24: 12                # from month 2, half rewards every 3 years

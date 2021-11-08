@@ -87,7 +87,7 @@ def configure(
         if testnet == "true" or testnet == "t":
             print("Setting Testnet")
             testnet_port = "57444"
-            testnet_introducer = "beta1_introducer.madmaxdrive.net"
+            testnet_introducer = "beta1_introducer.metahd.io"
             testnet = "testnet7"
             config["full_node"]["port"] = int(testnet_port)
             config["full_node"]["introducer_peer"]["port"] = int(testnet_port)
