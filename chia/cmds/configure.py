@@ -137,7 +137,7 @@ def configure(
             print("Please choose True or False")
 
     if change_made:
-        print("Restart any running chia services for changes to take effect")
+        print("Restart any running metahd services for changes to take effect")
         save_config(root_path, "config.yaml", config)
     return 0
 

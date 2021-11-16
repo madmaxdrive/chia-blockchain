@@ -96,11 +96,11 @@ async def send(args: dict, wallet_client: WalletRpcClient, fingerprint: int) -> 
         tx = await wallet_client.get_transaction(wallet_id, tx_id)
         if len(tx.sent_to) > 0:
             print(f"Transaction submitted to nodes: {tx.sent_to}")
-            print(f"Do chia wallet get_transaction -f {fingerprint} -tx 0x{tx_id} to get status")
+            print(f"Do metahd wallet get_transaction -f {fingerprint} -tx 0x{tx_id} to get status")
             return None
 
     print("Transaction not yet submitted to nodes")
-    print(f"Do 'chia wallet get_transaction -f {fingerprint} -tx 0x{tx_id}' to get status")
+    print(f"Do 'metahd wallet get_transaction -f {fingerprint} -tx 0x{tx_id}' to get status")
 
 
 async def get_address(args: dict, wallet_client: WalletRpcClient, fingerprint: int) -> None:
@@ -125,7 +125,7 @@ def wallet_coin_unit(typ: WalletType, address_prefix: str) -> Tuple[str, int]:
 
 def print_balance(amount: int, scale: int, address_prefix: str) -> str:
     ret = f"{amount/scale} {address_prefix} "
-    if scale > 1:
+    if scale > 1e2:
         ret += f"({amount} mojo)"
     return ret
 
@@ -243,7 +243,7 @@ async def execute_with_wallet(wallet_rpc_port: int, fingerprint: int, extra_para
         if isinstance(e, aiohttp.ClientConnectorError):
             print(
                 f"Connection error. Check if the wallet is running at {wallet_rpc_port}. "
-                "You can run the wallet via:\n\tchia start wallet"
+                "You can run the wallet via:\n\tmetahd start wallet"
             )
         else:
             print(f"Exception from 'wallet' {e}")

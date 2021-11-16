@@ -50,7 +50,7 @@ def check_keys(new_root: Path) -> None:
     keychain: Keychain = Keychain()
     all_sks = keychain.get_all_private_keys()
     if len(all_sks) == 0:
-        print("No keys are present in the keychain. Generate them with 'chia keys generate'")
+        print("No keys are present in the keychain. Generate them with 'metahd keys generate'")
         return None
 
     config: Dict = load_config(new_root, "config.yaml")
@@ -317,7 +317,7 @@ def chia_init(root_path: Path):
     if os.environ.get("CHIA_ROOT", None) is not None:
         print(
             f"warning, your CHIA_ROOT is set to {os.environ['CHIA_ROOT']}. "
-            f"Please unset the environment variable and run chia init again\n"
+            f"Please unset the environment variable and run metahd init again\n"
             f"or manually migrate config.yaml"
         )
 
@@ -333,6 +333,6 @@ def chia_init(root_path: Path):
     create_all_ssl(root_path)
     check_keys(root_path)
     print("")
-    print("To see your keys, run 'chia keys show --show-mnemonic-seed'")
+    print("To see your keys, run 'metahd keys show --show-mnemonic-seed'")
 
     return 0
