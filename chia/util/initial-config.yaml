@@ -72,7 +72,7 @@ network_overrides: &network_overrides
       DIFFICULTY_STARTING: 30
   config:
     mainnet:
-      address_prefix: "mhd"
+      address_prefix: "metac"
       default_full_node_port: 7444
     testnet0:
       address_prefix: "txch"
